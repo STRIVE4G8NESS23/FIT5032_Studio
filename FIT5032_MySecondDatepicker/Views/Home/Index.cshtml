@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        #selected-date {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label for="datepicker">选择日期:</label>
+            <input type="text" class="form-control" id="datepicker">
+        </div>
+        <button class="btn btn-primary" id="show-date-btn">显示日期</button>
+        <div id="selected-date" class="alert alert-info" role="alert" style="display: none;">
+            选择的日期: <span id="date-display"></span>
+        </div>
+    </div>
+
+    <!-- Load jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Load jQuery UI from CDN -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <!-- Bootstrap scripts -->
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize datepicker
+            $('#datepicker').datepicker({
+                dateFormat: 'mm/dd/yy'
+            }).datepicker('setDate', new Date(2022, 7, 20));
+
+            // Show selected date
+            $('#show-date-btn').on('click', function () {
+                var selectedDate = $('#datepicker').datepicker('getDate');
+                $('#date-display').text($.datepicker.formatDate('mm/dd/yy', selectedDate));
+                $('#selected-date').show();
+            });
+
+            // Initialize default date display
+            var defaultDate = $('#datepicker').datepicker('getDate');
+            $('#date-display').text($.datepicker.formatDate('mm/dd/yy', defaultDate));
+            $('#selected-date').show();
+        });
+    </script>
+</body>
+</html>
